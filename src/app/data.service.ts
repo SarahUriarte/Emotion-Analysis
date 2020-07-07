@@ -1,7 +1,10 @@
 // @ts-ignore
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './enviroment/environment';
 declare var require: any;
+
+@Injectable()
 export class DataService {
   constructor(private response: HttpClient) {
   }
@@ -24,7 +27,7 @@ export class DataService {
   }
   getCursos() {
     const headers = { };
-    return this.response.get(this._API_ROOT + 'general/getCursos', {headers});
+    return this.response.get(this._API_ROOT + '/getCursos', {headers});
   }
   getEmociones(carne) {
     const headers = { };

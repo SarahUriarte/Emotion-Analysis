@@ -5,7 +5,7 @@ import { PsicologiaComponent } from './psicologia/psicologia.component';
 import { LoginComponent } from './login/login.component';
 export const ROUTES: Routes = [
     {
-        path: '', redirectTo: 'login', pathMatch: 'full'
+        path: '', redirectTo: 'estudiantes', pathMatch: 'full'
     },
     {
         path: 'login', component: LoginComponent,
