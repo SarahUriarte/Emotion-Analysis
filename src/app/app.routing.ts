@@ -6,7 +6,11 @@ import {RegistroComponent} from './registro/registro.component'
 import { LoginComponent } from './login/login.component';
 export const ROUTES: Routes = [
     {
+<<<<<<< HEAD
         path: '', redirectTo: 'registro', pathMatch: 'full'
+=======
+        path: '', redirectTo: 'estudiantes', pathMatch: 'full'
+>>>>>>> estudiantes
     },
     {
         path: 'login', component: LoginComponent,

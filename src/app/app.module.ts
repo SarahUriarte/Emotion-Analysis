@@ -2,19 +2,28 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ROUTES } from './app.routing';
 import { AppComponent } from './app.component';
-import { DataService } from './data.service';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 // tslint:disable-next-line:no-unused-expression
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field'
-import {MatInputModule} from '@angular/material/input';
 import{MatChipsModule} from '@angular/material/chips';
 import{MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { DataService } from './data.service';
+import { HttpClientModule } from '@angular/common/http';
+// tslint:disable-next-line:no-unused-expression
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
 import { ComputacionComponent } from './computacion/computacion.component';
@@ -40,14 +49,25 @@ import { RegistroComponent } from './registro/registro.component';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    MatToolbarModule,
     FormsModule,
     MatButtonModule,
+    HttpClientModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule,
+    MatTableModule,
+    MatInputModule, 
+    MatPaginatorModule, 
+    MatProgressSpinnerModule, 
+    MatSortModule, 
+    MatTableModule,
     RouterModule.forRoot(ROUTES),
     BrowserAnimationsModule,
 
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

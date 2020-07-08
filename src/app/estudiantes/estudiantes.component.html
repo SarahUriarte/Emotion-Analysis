@@ -1,1 +1,64 @@
-<p>estudiantes works!</p>
+<div>
+  <mat-toolbar color="primary">
+    <span>MENU</span>
+
+    <button mat-icon-button [mat-menu-trigger-for]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-menu x-position="before" #menu="matMenu">
+    <button mat-menu-item  (click)="changeView(0)">Mi Perfil</button>
+    <button mat-menu-item  (click)="changeView(1)">Mis Cursos</button>
+    <button mat-menu-item  (click)="changeView(2)">Registrar Cursos</button>
+    <button mat-menu-item  (click)="changeView(3)">Iniciar Grabacion</button>
+  </mat-menu>
+  
+  <div [hidden]="misCursos" >
+    <mat-card class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Codigo </th>
+          <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+    
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef> Creditos </th>
+          <td mat-cell *matCellDef="let element"> {{element.creditos}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>  
+    </mat-card>
+  </div>
+  <div [hidden]="registrarCursos">
+    <button mat-button>Registrar Cursos</button>
+  </div>
+  <div [hidden]="iniciarGrabacion">
+    <button mat-button>Iniciar Grabacion</button>
+  </div>
+  <div [hidden]="miPerfil">
+    <button mat-button>Mi Perfil</button>
+  </div>
+
+
+</div>
+
+
+
+
