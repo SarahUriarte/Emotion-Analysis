@@ -27,6 +27,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     this.getCursos();
     this.paginator._intl.itemsPerPageLabel = 'Cursos por pagina';
     this.dataSource.paginator = this.paginator;
+    
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -66,8 +67,9 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     this.subscription.add(this.dataService.getCursos().subscribe(///aaa
       data => {
         this.listaCursos = data;
-        //console.log(data);
-        this.listaCursos = this.listaCursos.response.data;
+        this.listaCursos = this.listaCursos.response;
+        console.log(this.listaCursos);
+
       },
       (err: HttpErrorResponse) => {
         if(err.error instanceof Error) {
