@@ -1,5 +1,17 @@
 table{
     padding-left: 15%;
     width: 80%;
-   }
-   
+}
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    margin:1rem auto;
+    max-width: 600px;
+}   
+.contenedor2 {
+    display: flex;
+    padding-left: 20%;
+    flex-direction: row;
+    margin:1rem auto;
+    max-width: 600px;
+}   

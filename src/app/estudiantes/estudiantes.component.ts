@@ -13,7 +13,13 @@ import {MatTableDataSource} from '@angular/material/table';
 
 export class EstudiantesComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-  private listaCursos;
+  listaCursosE;
+  listaCursos;
+  nombreC=null;
+  codigoC=null;
+  creditosC=null;
+  carne="0504200129";
+
   @Input() showResponse: Array<any>;
   @Output() passRender : EventEmitter<boolean>;
  
@@ -23,10 +29,9 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<cursos>(ELEMENT_DATA);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-   ngOnInit(){
+  ngOnInit(){
     this.getCursos();
-    
-    
+    this.getCursosEstudiante();
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -35,11 +40,24 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   miPerfil = false;
   registrarCursos = true;
   iniciarGrabacion = true;
-  insertarCursos(listaCursos){
-    for(let i in listaCursos){
-      ELEMENT_DATA.push(listaCursos[i])
+  siguiente = false;
+  siguienteF(){
+    if(this.siguiente==true){
+      this.siguiente=false;
+    }else{
+      this.siguiente=true;
+    }
+  }
+  insertarCursos(listaCursosE){
+    for(let i in listaCursosE){
+      ELEMENT_DATA.push(listaCursosE[i])
     }
     
+  }
+  registrar(){
+    if(this.creditosC==null||this.codigoC==null||this.nombreC==null){
+      alert("Hay espacios que no se han completado")
+    }
   }
   changeView(valor) {
     if ( valor == 0) {
@@ -72,10 +90,9 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
       data => {
         this.listaCursos = data;
         this.listaCursos = this.listaCursos.response;
-        this.insertarCursos(this.listaCursos);
         this.paginator._intl.itemsPerPageLabel = 'Curso por pagina';
         this.dataSource.paginator = this.paginator;
-        console.log(this.listaCursos);
+        console.log("cursos",this.listaCursos);
 
       },
       (err: HttpErrorResponse) => {
@@ -88,7 +105,27 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     ));
     
   }
-  
+  getCursosEstudiante(){
+    this.subscription.add(this.dataService.getCursosEstudiate(this.carne).subscribe(///aaa
+      data => {
+        this.listaCursosE = data;
+        this.listaCursosE = this.listaCursosE.response;
+        this.insertarCursos(this.listaCursosE);
+        this.paginator._intl.itemsPerPageLabel = 'Curso por pagina';
+        this.dataSource.paginator = this.paginator;
+        console.log("CURSOS ES",this.listaCursosE);
+
+      },
+      (err: HttpErrorResponse) => {
+        if(err.error instanceof Error) {
+          console.log('Error del lado del cliente')
+        }else {
+          console.log('Error del lado del servidor')
+        }
+      }
+    ));
+    
+  }
 
 }
 
