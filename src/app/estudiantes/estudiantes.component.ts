@@ -66,7 +66,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     this.subscription.add(this.dataService.getCursos().subscribe(///aaa
       data => {
         this.listaCursos = data;
-        //console.log(data);
+        console.log(data);
         this.listaCursos = this.listaCursos.response.data;
       },
       (err: HttpErrorResponse) => {
