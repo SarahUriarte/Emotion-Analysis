@@ -17,7 +17,7 @@ export class DataService {
   iniciarSesion(username, contraseña) {
     const headers = { }; // let
     const params = {Username: username, Contraseña: contraseña};
-    return this.response.post(this._API_ROOT + 'general/iniciarSesion', {headers, params});
+    return this.response.post(this._API_ROOT + '/iniciarSesion', {headers, params});
   }
   getCursosEstudiate(carne) {
     const headers = { };
