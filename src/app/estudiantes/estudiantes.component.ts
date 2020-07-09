@@ -4,6 +4,8 @@ import {Subscription} from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+  import { MatSelect } from '@angular/material/select';
+import { stringify } from 'querystring';
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
@@ -13,7 +15,21 @@ import {MatTableDataSource} from '@angular/material/table';
 
 export class EstudiantesComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-  private listaCursos;
+  listaCursosE;
+  listaCursos;
+  listaProfesores;
+  nameuser=null;
+  pass=null;
+  nombreC=null;
+  codigoC=null;
+  creditosC=null;
+  serverRes
+  carne="0504200129";
+  numGrupo=50;
+  idProfesor;
+  idCurso;
+  idEstudiante=1;
+  private curso;
   @Input() showResponse: Array<any>;
   @Output() passRender : EventEmitter<boolean>;
  
@@ -21,21 +37,83 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     this.passRender = new EventEmitter();
   }
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<cursos>(ELEMENT_DATA);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(){
     this.getCursos();
-    this.paginator._intl.itemsPerPageLabel = 'Cursos por pagina';
-    this.dataSource.paginator = this.paginator;
+    this.getProfesores();
+    this.getCursosEstudiante();
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+  @ViewChild('matProfesor') matProfesor: MatSelect;
+  @ViewChild('matCurso') matCurso: MatSelect;
+       //Reference Variable //variable Name //Type
+
+  ngAfterViewInit() {
+      this.matProfesor.valueChange.subscribe(value => {
+          this.idProfesor=value;
+      });
+      this.matCurso.valueChange.subscribe(value => {
+        this.idCurso=value;
+      });
   }
   misCursos = true;
   miPerfil = false;
   registrarCursos = true;
   iniciarGrabacion = true;
-  
+  siguiente = false;
+  changeClient(value) {
+    console.log(value);
+  }
+  siguienteF(){
+    if(this.siguiente==true){
+      this.siguiente=false;
+    }else{
+      this.siguiente=true;
+    }
+  }
+  insertarCursos(listaCursosE){
+    for(let i in listaCursosE){
+      ELEMENT_DATA.push(listaCursosE[i])
+    }
+    
+  }
+  private sesion;
+  modificar(){
+    this.sesion = {"username":"jaffo98","password":"123"}
+    this.subscription.add(this.dataService.iniciarSesion(this.sesion).subscribe(///aaa
+      data => {
+        console.log(data);
+      },
+      (err: HttpErrorResponse) => {
+        if(err.error instanceof Error) {
+          console.log('Error del lado del cliente')
+        }else {
+          console.log('Error del lado del servidor')
+        }
+      }
+    ));
+  }
+  registrarCurso(){
+    this.curso ={professor_id: this.idProfesor,course_id: this.idCurso,student_id: this.idEstudiante,group_number: this.numGrupo};
+    console.log("sss",this.curso);
+    this.subscription.add(this.dataService.registrarCurso(this.curso).subscribe(///aaa
+      data => {
+        this.serverRes = data;
+        this.serverRes = this.serverRes.response;
+        console.log(this.serverRes);
+      },
+      (err: HttpErrorResponse) => {
+        if(err.error instanceof Error) {
+          console.log('Error del lado del cliente')
+        }else {
+          console.log('Error del lado del servidor')
+        }
+      }
+    ));
+  }
   changeView(valor) {
     if ( valor == 0) {
       this.misCursos = true;
@@ -66,8 +144,11 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     this.subscription.add(this.dataService.getCursos().subscribe(///aaa
       data => {
         this.listaCursos = data;
-        console.log(data);
-        this.listaCursos = this.listaCursos.response.data;
+        this.listaCursos = this.listaCursos.response;
+        this.paginator._intl.itemsPerPageLabel = 'Curso por pagina';
+        this.dataSource.paginator = this.paginator;
+        console.log("cursos",this.listaCursos);
+
       },
       (err: HttpErrorResponse) => {
         if(err.error instanceof Error) {
@@ -79,40 +160,58 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     ));
     
   }
-  
+  getCursosEstudiante(){
+    this.subscription.add(this.dataService.getCursosEstudiate(this.carne).subscribe(///aaa
+      data => {
+        this.listaCursosE = data;
+        this.listaCursosE = this.listaCursosE.response;
+        this.insertarCursos(this.listaCursosE);
+        this.paginator._intl.itemsPerPageLabel = 'Curso por pagina';
+        this.dataSource.paginator = this.paginator;
+        console.log("CURSOS ES",this.listaCursosE);
+
+      },
+      (err: HttpErrorResponse) => {
+        if(err.error instanceof Error) {
+          console.log('Error del lado del cliente')
+        }else {
+          console.log('Error del lado del servidor')
+        }
+      }
+    ));
+    
+  }
+  getProfesores(){
+    this.subscription.add(this.dataService.getProfesors().subscribe(///aaa
+      data => {
+        this.listaProfesores = data;
+        this.listaProfesores = this.listaProfesores.response;
+        console.log("Profesores",this.listaProfesores);
+
+      },
+      (err: HttpErrorResponse) => {
+        if(err.error instanceof Error) {
+          console.log('Error del lado del cliente')
+        }else {
+          console.log('Error del lado del servidor')
+        }
+      }
+    ));
+    
+  }
 
 }
 
 
 
 
-export interface PeriodicElement {
+export interface cursos {
   codigo: string;
   id: number;
-  nombre: number;
-  creditos: string;
+  nombre: string;
+  creditos: number;
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {id: 2, codigo: 'Helium', nombre: 4.002, creditos: 'He'},
-  {id: 3, codigo: 'Lithium', nombre: 6.941, creditos: 'Li'},
-  {id: 4, codigo: 'Beryllium', nombre: 9.0122, creditos: 'Be'},
-  {id: 5, codigo: 'Boron', nombre: 10.811, creditos: 'B'},
-  {id: 6, codigo: 'Carbon', nombre: 12.010, creditos: 'C'},
-  {id: 7, codigo: 'Nitrogen', nombre: 14.006, creditos: 'N'},
-  {id: 8, codigo: 'Oxygen', nombre: 15.999, creditos: 'O'},
-  {id: 9, codigo: 'Fluorine', nombre: 18.998, creditos: 'F'},
-  {id: 10, codigo: 'Neon', nombre: 20.179, creditos: 'Ne'},
-  {id: 11, codigo: 'Sodium', nombre: 22.989, creditos: 'Na'},
-  {id: 12, codigo: 'Magnesium', nombre: 24.305, creditos: 'Mg'},
-  {id: 13, codigo: 'Aluminum', nombre: 26.981, creditos: 'Al'},
-  {id: 14, codigo: 'Silicon', nombre: 28.085, creditos: 'Si'},
-  {id: 15, codigo: 'Phosphorus', nombre: 30.973, creditos: 'P'},
-  {id: 16, codigo: 'Sulfur', nombre: 32.065, creditos: 'S'},
-  {id: 17, codigo: 'Chlorine', nombre: 35.453, creditos: 'Cl'},
-  {id: 18, codigo: 'Argon', nombre: 39.948, creditos: 'Ar'},
-  {id: 19, codigo: 'Potassium', nombre: 39.098, creditos: 'K'},
-  {id: 20, codigo: 'Calcium', nombre: 40.078, creditos: 'Ca'},
-];
+var ELEMENT_DATA: cursos[] = [];
 
 
 

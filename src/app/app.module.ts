@@ -10,12 +10,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule, MatSelect } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {FormsModule} from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
@@ -34,8 +37,11 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     HttpClientModule,
     MatButtonModule,
+    MatSelectModule,
     MatMenuModule,
+    FormsModule,
     MatToolbarModule,
+    MatListModule,
     MatIconModule,
     MatCardModule,
     MatTableModule,
