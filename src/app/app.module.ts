@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule, MatSelect } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {FormsModule} from '@angular/forms';
 
@@ -36,6 +37,7 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     HttpClientModule,
     MatButtonModule,
+    MatSelectModule,
     MatMenuModule,
     FormsModule,
     MatToolbarModule,

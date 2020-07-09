@@ -1,6 +1,6 @@
 // @ts-ignore
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './enviroment/environment';
 declare var require: any;
 
@@ -15,10 +15,9 @@ export class DataService {
                     Nombre: nombre, Apellidos: apellidos, Rol: rol, PrimeraVez: primeraVez};
     return this.response.post(this._API_ROOT + '/registrar', {headers, params});
   }
-  iniciarSesion(username, contraseña) {
+  iniciarSesion(dataQuery: JSON) {
     const headers = { }; // let
-    const params = {Username: username, Contraseña: contraseña};
-    return this.response.post(this._API_ROOT + '/iniciarSesion', {headers, params});
+    return this.response.post(this._API_ROOT + '/iniciarSesion',dataQuery, {headers});
   }
   getCursosEstudiate(carne) {
     const headers = { };
@@ -49,11 +48,14 @@ export class DataService {
     const params = {Cedula: cedula, Nombre: nombre, Apellido: apellido};
     return this.response.post(this._API_ROOT + '/registrarProfesores', {headers, params});
   }
-
-  registrarCursos(codigo, cantEst, cantCred, profesorFK, numGrupo) {
+  registrarCurso(curso:JSON) {
+    const headers = {'content-type': 'application/json'};
+    return this.response.post(this._API_ROOT + '/registrarCursoEstudiante', curso,{headers});
+    //return this.response.post(this._API_ROOT + '/registrarCursoEstudiante',dataQuery, {headers});
+  }
+  registrarCursos(dataquery : JSON) {
     const headers = { };
-    const params = {Codigo: codigo, CantEst: cantEst, CantCred: cantCred, ProfesorFK: profesorFK, NumGrupo: numGrupo};
-    return this.response.post(this._API_ROOT + '/registrarCursos', {headers, params});
+    return this.response.post(this._API_ROOT + '/registrarCursos', {headers});
   }
   registrarEmociones(id, emocion, profesorCursoFK, idEstudianteFK, fechaYHora) {
     const headers = { };
@@ -70,6 +72,10 @@ export class DataService {
     const headers = { };
     const params = {Cedula: cedula};
     return this.response.get(this._API_ROOT + '/getEmocionesProfesor', {headers, params});
+  }
+  getProfesors() {
+    const headers = { };
+    return this.response.get(this._API_ROOT + '/getProfessors', {headers});
   }
 }
 

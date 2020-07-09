@@ -4,6 +4,8 @@ import {Subscription} from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+  import { MatSelect } from '@angular/material/select';
+import { stringify } from 'querystring';
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
@@ -15,11 +17,19 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   listaCursosE;
   listaCursos;
+  listaProfesores;
+  nameuser=null;
+  pass=null;
   nombreC=null;
   codigoC=null;
   creditosC=null;
+  serverRes
   carne="0504200129";
-
+  numGrupo=50;
+  idProfesor;
+  idCurso;
+  idEstudiante=1;
+  private curso;
   @Input() showResponse: Array<any>;
   @Output() passRender : EventEmitter<boolean>;
  
@@ -31,16 +41,32 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(){
     this.getCursos();
+    this.getProfesores();
     this.getCursosEstudiante();
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+  @ViewChild('matProfesor') matProfesor: MatSelect;
+  @ViewChild('matCurso') matCurso: MatSelect;
+       //Reference Variable //variable Name //Type
+
+  ngAfterViewInit() {
+      this.matProfesor.valueChange.subscribe(value => {
+          this.idProfesor=value;
+      });
+      this.matCurso.valueChange.subscribe(value => {
+        this.idCurso=value;
+      });
   }
   misCursos = true;
   miPerfil = false;
   registrarCursos = true;
   iniciarGrabacion = true;
   siguiente = false;
+  changeClient(value) {
+    console.log(value);
+  }
   siguienteF(){
     if(this.siguiente==true){
       this.siguiente=false;
@@ -54,10 +80,39 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     }
     
   }
-  registrar(){
-    if(this.creditosC==null||this.codigoC==null||this.nombreC==null){
-      alert("Hay espacios que no se han completado")
-    }
+  private sesion;
+  modificar(){
+    this.sesion = {"username":"jaffo98","password":"123"}
+    this.subscription.add(this.dataService.iniciarSesion(this.sesion).subscribe(///aaa
+      data => {
+        console.log(data);
+      },
+      (err: HttpErrorResponse) => {
+        if(err.error instanceof Error) {
+          console.log('Error del lado del cliente')
+        }else {
+          console.log('Error del lado del servidor')
+        }
+      }
+    ));
+  }
+  registrarCurso(){
+    this.curso ={professor_id: this.idProfesor,course_id: this.idCurso,student_id: this.idEstudiante,group_number: this.numGrupo};
+    console.log("sss",this.curso);
+    this.subscription.add(this.dataService.registrarCurso(this.curso).subscribe(///aaa
+      data => {
+        this.serverRes = data;
+        this.serverRes = this.serverRes.response;
+        console.log(this.serverRes);
+      },
+      (err: HttpErrorResponse) => {
+        if(err.error instanceof Error) {
+          console.log('Error del lado del cliente')
+        }else {
+          console.log('Error del lado del servidor')
+        }
+      }
+    ));
   }
   changeView(valor) {
     if ( valor == 0) {
@@ -114,6 +169,24 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
         this.paginator._intl.itemsPerPageLabel = 'Curso por pagina';
         this.dataSource.paginator = this.paginator;
         console.log("CURSOS ES",this.listaCursosE);
+
+      },
+      (err: HttpErrorResponse) => {
+        if(err.error instanceof Error) {
+          console.log('Error del lado del cliente')
+        }else {
+          console.log('Error del lado del servidor')
+        }
+      }
+    ));
+    
+  }
+  getProfesores(){
+    this.subscription.add(this.dataService.getProfesors().subscribe(///aaa
+      data => {
+        this.listaProfesores = data;
+        this.listaProfesores = this.listaProfesores.response;
+        console.log("Profesores",this.listaProfesores);
 
       },
       (err: HttpErrorResponse) => {

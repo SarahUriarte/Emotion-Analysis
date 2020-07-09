@@ -48,33 +48,41 @@
   </div>
   <div  [hidden]="registrarCursos">
     <div class="contenedor">
-      <h1 style="text-align: center;">Registrar Cursos</h1>
-      <h3 style="text-align: center;">Seleccione una opcion</h3>
     </div>
     <div [hidden]="siguiente">
       <div class="contenedor">
-        <mat-selection-list #cursos>
-          <mat-list-option *ngFor="let curso of listaCursos">
-            {{curso.nombre}}
-          </mat-list-option>
-        </mat-selection-list>
+        <mat-form-field>
+          <mat-label>Cursos</mat-label>
+          <mat-select #matCurso required>
+            <mat-option *ngFor="let curso of listaCursos" [value]="curso.id" id="curso.GRUPO">
+              {{curso.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>GRUPO</mat-label>
+          <input matInput [(ngModel)]="numGrupo" type="number" placeholder="Ex. 50" value="">
+        </mat-form-field>
         <div class="contenedor">
           <button  mat-raised-button color="primary" style="width : 10em; align-self: center;" (click)="siguienteF()">Siguiente</button>
         </div>
          </div>
-    </div>
+    </div>    
     <div [hidden]="!siguiente">
       
       <div class="contenedor">
-        <mat-selection-list #cursos>
-          <mat-list-option *ngFor="let curso of listaCursos"> <!--Lista de profesores por curso-->
-            {{curso.id}} Nombre profesor
-          </mat-list-option>
-        </mat-selection-list>
+        <mat-form-field appearance="fill">
+          <mat-label>Profesores</mat-label>
+          <mat-select #matProfesor required>
+            <mat-option *ngFor="let type of listaProfesores" [value]="type.id" >
+                {{type.nombre}} {{type.apellidos}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
       </div>
       <div class="contenedor2">
         <button  mat-raised-button color="primary" style="margin-right: 10px; width : 10em; align-self: center;" (click)="siguienteF()" >Regresar</button>
-        <button  mat-raised-button color="primary" style="width : 10em; align-self: center;" >Registrar</button>
+        <button  mat-raised-button color="primary" style="width : 10em; align-self: center;" (click)="registrarCurso()">Registrar</button>
       </div>
      
     </div>
@@ -89,15 +97,15 @@
     <div class="contenedor">
       <mat-form-field class="example-full-width">
         <mat-label>Nombre Usuario</mat-label>
-        <input matInput [(ngModel)]="codigoC" type="string" placeholder="Ex. User1" value="">
+        <input matInput [(ngModel)]="nameuser" type="string" placeholder="Ex. User1" value="">
       </mat-form-field>
     
       <mat-form-field class="example-full-width">
         <mat-label>Contraseña</mat-label>
-        <input matInput [(ngModel)]="nombreC" type="password" placeholder="Ex. password" value="">
+        <input matInput [(ngModel)]="pass" type="password" placeholder="Ex. password" value="">
       </mat-form-field>
 
-      <button  mat-raised-button color="primary" style="width : 10em; align-self: center;" (click)="registrar()">Modificar</button>
+      <button  mat-raised-button color="primary" style="width : 10em; align-self: center;" (click)="modificar()">Modificar</button>
     </div>
   </div>
 </div>
