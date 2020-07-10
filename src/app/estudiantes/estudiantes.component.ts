@@ -33,7 +33,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
       this.interval =setInterval(() => {
         this.time = this.triggerSnapshot(); //set time variable with current date 
         console.log("time",this.time);
-       }, 600000);
+       }, 1000);
     }else{
       this.grabar=true;
       clearInterval(this.interval);
