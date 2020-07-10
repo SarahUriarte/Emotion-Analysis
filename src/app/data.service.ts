@@ -20,7 +20,7 @@ export class DataService {
     const headers = { }; // let
     return this.response.post(this._API_ROOT + '/iniciarSesion',dataQuery, {headers});
   }
-  getCursosEstudiate(carne) {
+  getCursosEstudiante(carne) {
     const headers = { };
     const params = {identification: carne};
     return this.response.get(this._API_ROOT + '/getCursosEstudiante', {headers, params});
@@ -88,21 +88,6 @@ export class DataService {
     //const blob = this.makeblob(imageURL);
    return this.response.post(this.url, {url:imageURL},{headers})
   }
-  /*
-  private makeblob(dataURL) {
-    const BASE64_MARKER = ';base64,';
-    const parts = dataURL.split(BASE64_MARKER);
-    const contentType = parts[0].split(':')[1];
-    const raw = window.atob(parts[1]);
-    const rawLength = raw.length;
-    const uInt8Array = new Uint8Array(rawLength);
-
-    for (let i = 0; i < rawLength; ++i) {
-      uInt8Array[i] = raw.charCodeAt(i);
-    }
-
-    return new Blob([uInt8Array]);
-  }*/
 }
 
 

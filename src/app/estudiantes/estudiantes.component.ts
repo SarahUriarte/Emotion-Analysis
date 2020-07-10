@@ -1,11 +1,16 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+
 import { DataService } from '../data.service';
 import {Subscription} from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-  import { MatSelect } from '@angular/material/select';
-import { stringify } from 'querystring';
+import { MatSelect } from '@angular/material/select';
+
+import {WebcamImage} from './modules/webcam/domain/webcam-image';
+import {WebcamUtil} from './modules/webcam/util/webcam.util';
+import {WebcamInitError} from './modules/webcam/domain/webcam-init-error';
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
@@ -14,10 +19,101 @@ import { stringify } from 'querystring';
 
 
 export class EstudiantesComponent implements OnInit, OnDestroy {
+
+  //-------------------------------------------
+  //-------------------------------------------
+  //-------------------------------------------
+  time;
+  interval;
+
+
+  iniciarGrabacion() {
+    if(this.grabar){
+      this.grabar=false;
+      this.interval =setInterval(() => {
+        this.time = this.triggerSnapshot(); //set time variable with current date 
+        console.log("time",this.time);
+       }, 1000);
+    }else{
+      this.grabar=true;
+      clearInterval(this.interval);
+    }
+    
+  }
+  // toggle webcam on/off
+  public showWebcam = true;
+  public allowCameraSwitch = true;
+  public multipleWebcamsAvailable = false;
+  public deviceId: string;
+  public facingMode: string = 'environment';
+  public errors: WebcamInitError[] = [];
+
+  // latest snapshot
+  public webcamImage: WebcamImage = null;
+
+  // webcam snapshot trigger
+  private trigger: Subject<void> = new Subject<void>();
+  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
+  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+  public toggleWebcam(): void {
+    this.showWebcam = !this.showWebcam;
+  }
+
+  
+
+  public showNextWebcam(directionOrDeviceId: boolean|string): void {
+    // true => move forward through devices
+    // false => move backwards through devices
+    // string => move to device with given deviceId
+    this.nextWebcam.next(directionOrDeviceId);
+  }
+  public handleInitError(error: WebcamInitError): void {
+    if (error.mediaStreamError && error.mediaStreamError.name === 'NotAllowedError') {
+      console.warn('Camera access was not allowed by user!');
+    }
+    this.errors.push(error);
+  }
+  public handleImage(webcamImage: WebcamImage): void {
+    console.log('received webcam image', webcamImage);
+    this.webcamImage = webcamImage;
+  }
+
+  public cameraWasSwitched(deviceId: string): void {
+    console.log('active device: ' + deviceId);
+    this.deviceId = deviceId;
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<boolean|string> {
+    return this.nextWebcam.asObservable();
+  }
+
+  public get videoOptions(): MediaTrackConstraints {
+    const result: MediaTrackConstraints = {};
+    if (this.facingMode && this.facingMode !== '') {
+      result.facingMode = { ideal: this.facingMode };
+    }
+
+    return result;
+  }
+
+  //-------------------------------------------------
+  //----------------------------------------------------
+  //---------------------------------------------
   private subscription: Subscription = new Subscription();
   listaCursosE;
   listaCursos;
   listaProfesores;
+  grabacion=true;
+  grabar=true;
   nameuser=null;
   pass=null;
   nombreC=null;
@@ -25,7 +121,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   creditosC=null;
   serverRes
   carne="0504200129";
-  numGrupo=50;
+  numGrupo;
   idProfesor;
   idCurso;
   idEstudiante=1;
@@ -42,6 +138,10 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<cursos>(ELEMENT_DATA);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(){
+    WebcamUtil.getAvailableVideoInputs()
+      .then((mediaDevices: MediaDeviceInfo[]) => {
+        this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+      });
     this.getCursos();
     this.getProfesores();
     this.getCursosEstudiante();
@@ -64,7 +164,6 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   misCursos = true;
   miPerfil = false;
   registrarCursos = true;
-  iniciarGrabacion = true;
   siguiente = false;
   changeClient(value) {
     console.log(value);
@@ -119,25 +218,25 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   changeView(valor) {
     if ( valor == 0) {
       this.misCursos = true;
-      this.iniciarGrabacion = true;
+      this.grabacion = true;
       this.registrarCursos = true;
       this.miPerfil = false;
     }
     if (valor == 1) {
       this.misCursos = false;
-      this.iniciarGrabacion = true;
+      this.grabacion = true;
       this.registrarCursos = true;
       this.miPerfil = true;
     }
     if (valor == 2 ) {
       this.misCursos = true;
-      this.iniciarGrabacion = true;
+      this.grabacion = true;
       this.registrarCursos = false;
       this.miPerfil = true;
     }
     if ( valor == 3 ) {
       this.misCursos = true;
-      this.iniciarGrabacion = false;
+      this.grabacion = false;
       this.registrarCursos = true;
       this.miPerfil = true;
     }
@@ -163,7 +262,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     
   }
   getCursosEstudiante(){
-    this.subscription.add(this.dataService.getCursosEstudiate(this.carne).subscribe(///aaa
+    this.subscription.add(this.dataService.getCursosEstudiante(this.carne).subscribe(///aaa
       data => {
         this.listaCursosE = data;
         this.listaCursosE = this.listaCursosE.response;
