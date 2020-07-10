@@ -17,8 +17,9 @@ export class DataService {
     return this.response.post(this._API_ROOT + '/registrar', {headers, params});
   }
   iniciarSesion(dataQuery: JSON) {
-    const headers = { }; // let
-    return this.response.post(this._API_ROOT + '/iniciarSesion',dataQuery, {headers});
+    console.log('service ',dataQuery)
+    const headers = {'content-type': 'application/json' }; // let
+    return this.response.post(this._API_ROOT + '/iniciarSesion', dataQuery,{headers});
   }
   getCursosEstudiante(carne) {
     const headers = { };

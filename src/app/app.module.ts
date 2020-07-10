@@ -19,14 +19,15 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule, MatSelect } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {FormsModule} from '@angular/forms';
 import {WebcamModule} from 'ngx-webcam';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
 import { ComputacionComponent } from './computacion/computacion.component';
 import { PsicologiaComponent } from './psicologia/psicologia.component';
 import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms'  
+import { ReactiveFormsModule} from '@angular/forms';
+import { RegistroComponent } from './registro/registro.component' 
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { LoginComponent } from './login/login.component';
     ComputacionComponent,
     PsicologiaComponent,
     LoginComponent,
+    RegistroComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ import { LoginComponent } from './login/login.component';
     MatSelectModule,
     MatMenuModule,
     FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatListModule,
     MatIconModule,

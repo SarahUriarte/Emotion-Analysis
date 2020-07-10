@@ -33,7 +33,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
       this.interval =setInterval(() => {
         this.time = this.triggerSnapshot(); //set time variable with current date 
         console.log("time",this.time);
-       }, 1000);
+       }, 10000);
     }else{
       this.grabar=true;
       clearInterval(this.interval);
@@ -81,21 +81,6 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   public handleImage(webcamImage: WebcamImage) {
     console.log('received webcam image', webcamImage);
     fetch(webcamImage.imageAsDataUrl).then(res => res.blob()).then(blobData => {this.getPersonEmotion(blobData)})
-        //this.webcamImage = webcamImage;
-
-      /*
-        var data = webcamImage.imageAsDataUrl.split(',')[1];
-        var mimeType = webcamImage.imageAsDataUrl.split(';')[0].slice(5)
-
-        var bytes = window.atob(data);
-        var buf = new ArrayBuffer(bytes.length);
-        var byteArr = new Uint8Array(buf);
-
-        for (var i = 0; i < bytes.length; i++) {
-            byteArr[i] = bytes.charCodeAt(i);
-        }
-
-        this.getPersonEmotion(byteArr);*/
     
   }
 
