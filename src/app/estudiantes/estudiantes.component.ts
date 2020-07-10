@@ -32,7 +32,9 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   private curso;
   @Input() showResponse: Array<any>;
   @Output() passRender : EventEmitter<boolean>;
- 
+   
+  imageUrl:string = "https://www.lavanguardia.com/r/GODO/LV/p7/Vivir/2020/04/16/Recortada/img_fmartinez_20180821-165544_imagenes_lv_gtres_dl_u304593_004-kVoF-U48564262068TGE-992x558@LaVanguardia-Web.jpg";
+  private emotionResponse;
   constructor(private dataService:DataService) {
     this.passRender = new EventEmitter();
   }
@@ -200,6 +202,24 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     
   }
 
+  getPersonEmotion(){
+    this.subscription.add(this.dataService.getPersonEmotion(this.imageUrl).subscribe(///aaa
+      data => {
+        console.log(data)
+        this.emotionResponse = data;
+        this.emotionResponse = this.emotionResponse.response;
+        console.log(this.emotionResponse)
+
+      },
+      (err: HttpErrorResponse) => {
+        if(err.error instanceof Error) {
+          console.log('Error del lado del cliente')
+        }else {
+          console.log('Error del lado del servidor')
+        }
+      }
+    ));
+  }
 }
 
 

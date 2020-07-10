@@ -5,5 +5,8 @@
 
 export const environment = {
   production: false,
-  API_ROOT: 'http://localhost:8080'};
+  API_ROOT: 'http://localhost:8080',
+  SUBSCRIPTION_KEY: 'b11663ca7b4640b68d85ccca56bb2252',
+  FACE_URL: 'https://face-recognition-tec.cognitiveservices.azure.com/face/v1.0/detect?returnFaceAttributes=emotion'
+};
   

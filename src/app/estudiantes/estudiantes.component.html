@@ -91,7 +91,7 @@
   
 
   <div [hidden]="iniciarGrabacion">
-    <button mat-button>Iniciar Grabacion</button>
+    <button mat-button (click) = "getPersonEmotion()">Iniciar Grabacion</button>
   </div>
   <div [hidden]="miPerfil">
     <div class="contenedor">
