@@ -78,10 +78,32 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     }
     this.errors.push(error);
   }
-  public handleImage(webcamImage: WebcamImage): void {
+  public handleImage(webcamImage: WebcamImage) {
     console.log('received webcam image', webcamImage);
-    this.webcamImage = webcamImage;
+    fetch(webcamImage.imageAsDataUrl).then(res => res.blob()).then(blobData => {this.getPersonEmotion(blobData)})
+        //this.webcamImage = webcamImage;
+
+      /*
+        var data = webcamImage.imageAsDataUrl.split(',')[1];
+        var mimeType = webcamImage.imageAsDataUrl.split(';')[0].slice(5)
+
+        var bytes = window.atob(data);
+        var buf = new ArrayBuffer(bytes.length);
+        var byteArr = new Uint8Array(buf);
+
+        for (var i = 0; i < bytes.length; i++) {
+            byteArr[i] = bytes.charCodeAt(i);
+        }
+
+        this.getPersonEmotion(byteArr);*/
+    
   }
+
+
+
+
+
+
 
   public cameraWasSwitched(deviceId: string): void {
     console.log('active device: ' + deviceId);
@@ -301,8 +323,8 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     
   }
 
-  getPersonEmotion(){
-    this.subscription.add(this.dataService.getPersonEmotion(this.imageUrl).subscribe(///aaa
+  getPersonEmotion(image){
+    this.subscription.add(this.dataService.getPersonEmotion(image).subscribe(///aaa
       data => {
         console.log(data)
         this.emotionResponse = data;

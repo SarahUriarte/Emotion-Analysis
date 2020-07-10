@@ -79,14 +79,14 @@ export class DataService {
     return this.response.get(this._API_ROOT + '/getProfessors', {headers});
   }
 
-  getPersonEmotion(imageURL:String){
+  getPersonEmotion(image){
     const headers = {
-      'Content-Type': 'application/json', 
+      'Content-Type': 'application/octet-stream',
       'Ocp-Apim-Subscription-Key': environment.SUBSCRIPTION_KEY
     };
 
     //const blob = this.makeblob(imageURL);
-   return this.response.post(this.url, {url:imageURL},{headers})
+   return this.response.post(this.url, image,{headers})
   }
 }
 

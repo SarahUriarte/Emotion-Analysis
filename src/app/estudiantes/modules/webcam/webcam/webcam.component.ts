@@ -225,7 +225,7 @@ export class WebcamComponent implements AfterViewInit, OnDestroy {
     const mimeType: string = this.imageType ? this.imageType : WebcamComponent.DEFAULT_IMAGE_TYPE;
     const quality: number = this.imageQuality ? this.imageQuality : WebcamComponent.DEFAULT_IMAGE_QUALITY;
     const dataUrl: string = _canvas.toDataURL(mimeType, quality);
-
+    
     // get the ImageData object from the canvas' context.
     let imageData: ImageData = null;
 
