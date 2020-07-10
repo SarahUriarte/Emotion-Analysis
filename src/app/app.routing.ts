@@ -3,6 +3,7 @@ import {EstudiantesComponent} from './estudiantes/estudiantes.component';
 import { ComputacionComponent } from './computacion/computacion.component';
 import { PsicologiaComponent } from './psicologia/psicologia.component';
 import { LoginComponent } from './login/login.component';
+
 export const ROUTES: Routes = [
     {
         path: '', redirectTo: 'estudiantes', pathMatch: 'full'

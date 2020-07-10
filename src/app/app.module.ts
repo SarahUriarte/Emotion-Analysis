@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule, MatSelect } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {FormsModule} from '@angular/forms';
+import {WebcamModule} from 'ngx-webcam';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
@@ -35,6 +36,7 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     BrowserModule,
+    WebcamModule,
     HttpClientModule,
     MatButtonModule,
     MatSelectModule,

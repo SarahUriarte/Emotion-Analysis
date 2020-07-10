@@ -19,13 +19,13 @@ export class DataService {
     const headers = { }; // let
     return this.response.post(this._API_ROOT + '/iniciarSesion',dataQuery, {headers});
   }
-  getCursosEstudiate(carne) {
-    const headers = { };
-    const params = {identification: carne};
+  getCursosEstudiante(carne) {
+    const headers = {'content-type': 'application/json'};
+    const params = {'identification': carne};
     return this.response.get(this._API_ROOT + '/getCursosEstudiante', {headers, params});
   }
   getCursos() {
-    const headers = { };
+    const headers = {'content-type': 'application/json'};
     return this.response.get(this._API_ROOT + '/getCursos', {headers});
   }
   getEmociones(carne) {

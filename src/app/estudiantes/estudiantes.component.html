@@ -90,8 +90,30 @@
   </div>
   
 
-  <div [hidden]="iniciarGrabacion">
-    <button mat-button>Iniciar Grabacion</button>
+  <div [hidden]="grabacion">
+      <div style="text-align:center">
+        <h1>
+          Grabacion
+        </h1>
+        <div>
+          <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+                  [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+                  [videoOptions]="videoOptions"
+                  [imageQuality]="1"
+                  (cameraSwitched)="cameraWasSwitched($event)"
+                  (initError)="handleInitError($event)"
+          ></webcam>
+          <br/>
+          <button [hidden]="!grabar" class="actionBtn" (click)="iniciarGrabacion();">Iniciar Grabacion</button>
+          <button [hidden]="grabar" class="actionBtn" (click)="iniciarGrabacion();">Detener Grabacion</button>
+          <button class="actionBtn" (click)="toggleWebcam();">Habilitar Webcam</button>
+          <br/>
+        </div>
+      </div>
+      <div class="snapshot" *ngIf="webcamImage">
+        <h2>Listo!</h2>
+        <img [src]="webcamImage.imageAsDataUrl"/>
+      </div>
   </div>
   <div [hidden]="miPerfil">
     <div class="contenedor">
