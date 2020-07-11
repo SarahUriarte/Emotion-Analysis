@@ -1,0 +1,39 @@
+.has-error input[type="name"],
+.has-error input[type="lastname"],
+.has-error input[type="number"],
+.has-error input[type="identification"],
+.has-error input[type="code"] {
+  border-color: rgb(216, 12, 12);
+  color: rgb(230, 14, 14);
+}
+
+ input[type="submit"]:hover {
+    background: #17c;
+  }
+  
+input[type="submit"]:focus {
+    border-color: #05a;
+  }
+  
+  input[type="submit"] {
+    background: rgb(1, 29, 51);
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    padding: 16px;
+    outline: 0;
+    font-family: inherit;
+    font-size: 0.95em;
+  }
+  
+  p {
+    padding: 12px;
+  }

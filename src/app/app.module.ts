@@ -3,6 +3,13 @@ import { NgModule } from '@angular/core';
 import { ROUTES } from './app.routing';
 import { AppComponent } from './app.component';
 import {RouterModule} from '@angular/router';
+import {FormsModule} from '@angular/forms';
+// tslint:disable-next-line:no-unused-expression
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field'
+import{MatChipsModule} from '@angular/material/chips';
+import{MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -17,15 +24,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule, MatSelect } from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {WebcamModule} from 'ngx-webcam';
+import { WebcamModule} from 'ngx-webcam';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
 import { ComputacionComponent } from './computacion/computacion.component';
 import { PsicologiaComponent } from './psicologia/psicologia.component';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms'  
 import { ReactiveFormsModule} from '@angular/forms';
 import { RegistroComponent } from './registro/registro.component' 
 @NgModule({
@@ -39,7 +45,17 @@ import { RegistroComponent } from './registro/registro.component'
   ],
   imports: [
     BrowserModule,
+    MatExpansionModule,
     WebcamModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatChipsModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCardModule,
+    FormsModule,
+    MatButtonModule,
     HttpClientModule,
     MatButtonModule,
     MatSelectModule,
