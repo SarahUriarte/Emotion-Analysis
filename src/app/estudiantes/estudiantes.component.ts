@@ -100,11 +100,6 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   }
 
 
-
-
-
-
-
   public cameraWasSwitched(deviceId: string): void {
     console.log('active device: ' + deviceId);
     this.deviceId = deviceId;
@@ -148,10 +143,12 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   idCurso;
   idEstudiante=1;
   private curso;
+  private emocionesEnviar;
+  private idCursoSel;
+
   @Input() showResponse: Array<any>;
   @Output() passRender : EventEmitter<boolean>;
-   
-  imageUrl:string = "https://www.lavanguardia.com/r/GODO/LV/p7/Vivir/2020/04/16/Recortada/img_fmartinez_20180821-165544_imagenes_lv_gtres_dl_u304593_004-kVoF-U48564262068TGE-992x558@LaVanguardia-Web.jpg";
+  
   private emotionResponse;
   constructor(private dataService:DataService) {
     this.passRender = new EventEmitter();
@@ -167,6 +164,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     this.getCursos();
     this.getProfesores();
     this.getCursosEstudiante();
+    
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -202,6 +200,10 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
       ELEMENT_DATA.push(listaCursosE[i])
     }
     
+  }
+  changeValue(value){
+    console.log("Entr[e")
+    console.log(value)
   }
   private sesion;
   modificar(){
@@ -272,6 +274,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
         this.dataSource.paginator = this.paginator;
         console.log("cursos",this.listaCursos);
 
+
       },
       (err: HttpErrorResponse) => {
         if(err.error instanceof Error) {
@@ -322,7 +325,6 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     ));
     
   }
-
   getPersonEmotion(image){
     this.subscription.add(this.dataService.getPersonEmotion(image).subscribe(///aaa
       data => {
@@ -330,7 +332,32 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
         this.emotionResponse = data;
         this.emotionResponse = this.emotionResponse.response;
         console.log(this.emotionResponse)
-
+        var emotions = this.emotionResponse[0]['faceAttributes']
+        for (let emotion in emotions){
+            if (emotions[emotion] > 0.5){
+              this.emocionesEnviar = {
+                student_id:this.carne,
+                emotion:emotions[emotion],
+                course_id: 1,
+                fecha: Date.now
+              }
+              this.subscription.add(this.dataService.registrarEmociones(this.emocionesEnviar).subscribe(///aaa
+                data => {
+                  this.listaProfesores = data;
+                  this.listaProfesores = this.listaProfesores.response;
+                  console.log("Profesores",this.listaProfesores);
+          
+                },
+                (err: HttpErrorResponse) => {
+                  if(err.error instanceof Error) {
+                    console.log('Error del lado del cliente')
+                  }else {
+                    console.log('Error del lado del servidor')
+                  }
+                }
+              ));
+            }
+        }
       },
       (err: HttpErrorResponse) => {
         if(err.error instanceof Error) {

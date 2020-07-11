@@ -96,6 +96,15 @@
           Grabacion
         </h1>
         <div>
+          <mat-form-field>
+            <mat-select #matCurso required (Change) = "changeValue($event.value)">
+              <mat-option *ngFor="let curso of listaCursosE" [value]="curso.nombre" id="curso.GRUPO">
+                {{curso.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
           <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
                   [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
                   [videoOptions]="videoOptions"
