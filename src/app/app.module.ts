@@ -22,17 +22,16 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule, MatSelect } from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {FormsModule} from '@angular/forms';
-import {WebcamModule} from 'ngx-webcam';
-
+import { WebcamModule} from 'ngx-webcam';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
 import { ComputacionComponent } from './computacion/computacion.component';
 import { PsicologiaComponent } from './psicologia/psicologia.component';
 import { LoginComponent } from './login/login.component';
-import { RegistroComponent } from './registro/registro.component';
+import { ReactiveFormsModule} from '@angular/forms';
+import { RegistroComponent } from './registro/registro.component' 
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,17 +39,27 @@ import { RegistroComponent } from './registro/registro.component';
     ComputacionComponent,
     PsicologiaComponent,
     LoginComponent,
-    
-    RegistroComponent
+    RegistroComponent,
   ],
   imports: [
     BrowserModule,
+    MatExpansionModule,
     WebcamModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatChipsModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCardModule,
+    FormsModule,
+    MatButtonModule,
     HttpClientModule,
     MatButtonModule,
     MatSelectModule,
     MatMenuModule,
     FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatListModule,
     MatIconModule,

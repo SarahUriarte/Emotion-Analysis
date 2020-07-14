@@ -1,1 +1,112 @@
-<p>computacion works!</p>
+<div style="padding-top: 2%;">
+    <h1 style="text-align: center; color: #3929a0;"><b>Bienvenido al menú de Ingeniería Computación</b></h1>
+</div>
+<div class="container" style="margin: 13%;">
+    <mat-accordion>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Registrar nuevo profesor
+                </mat-panel-title>
+                <mat-panel-description>
+                    Presione aquí si quire registrar un nuevo profesor
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="professor" style=" text-align: center;">
+                <form [formGroup]="professorForm" class="professor-container" (ngSubmit)="registrarProfesor()"
+                    style="border-radius: 5px;">
+
+                    <p [ngClass]="{ 'has-error': isSubmitted && formControlsProfessor.identification.errors }">
+                        <input type="identification" placeholder="Identificación" formControlName="identification">
+                    </p>
+
+                    <div *ngIf="isSubmitted && formControlsProfessor.identification.errors" class="help-block">
+                        <div style="color: red; text-align: center;"
+                            *ngIf="formControlsProfessor.identification.errors.required">La Identificación es requerida</div>
+                    </div>
+
+                    <p [ngClass]="{ 'has-error': isSubmitted && formControlsProfessor.name.errors }">
+                        <input type="name" placeholder="Nombre" formControlName="name">
+                    </p>
+
+                    <div *ngIf="isSubmitted && formControlsProfessor.name.errors" class="help-block">
+                        <div style="color: red; text-align: center;" *ngIf="formControlsProfessor.name">El nombre es requerido</div>
+                    </div>
+
+                    <p [ngClass]="{ 'has-error': isSubmitted && formControlsProfessor.lastname.errors }">
+                        <input type="lastname" placeholder="Apellido" formControlName="lastname">
+                    </p>
+
+                    <div *ngIf="isSubmitted && formControlsProfessor.lastname.errors" class="help-block">
+                        <div style="color: red; text-align: center;" *ngIf="formControlsProfessor.lastname.errors.required">El apellido es requerido</div>
+                    </div>
+
+                    <p>
+                        <input type="submit" value="Registrar Profesor">
+                    </p>
+                </form>
+
+            </div>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Registrar nuevo curso
+                </mat-panel-title>
+                <mat-panel-description>
+                    Presione aquí si quire registrar un nuevo curso
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="course" style=" text-align: center;">
+                <form [formGroup]="courseForm" class="course-container" (ngSubmit)="registrarCurso()"
+                    style="border-radius: 5px;">
+
+                    <p [ngClass]="{ 'has-error': isSubmitted && formControlsCourse.identification.errors }">
+                        <input type="code" placeholder="Código del curso" formControlName="code">
+                    </p>
+
+                    <div *ngIf="isSubmitted && formControlsCourse.code.errors" class="help-block">
+                        <div style="color: red; text-align: center;"
+                            *ngIf="formControlsCourse.code.errors.required">La código es requerido</div>
+                    </div>
+
+                    <p [ngClass]="{ 'has-error': isSubmitted && formControlsCourse.name.errors }">
+                        <input type="name" placeholder="Nombre" formControlName="name">
+                    </p>
+
+                    <div *ngIf="isSubmitted && formControlsCourse.name.errors" class="help-block">
+                        <div style="color: red; text-align: center;" *ngIf="formControlsCourse.name.required">El nombre es requerido</div>
+                    </div>
+
+                    <p [ngClass]="{ 'has-error': isSubmitted && formControlsCourse.credits.errors }">
+                        <input type="number" placeholder="Créditos" formControlName="credits">
+                    </p>
+
+                    <div *ngIf="isSubmitted && formControlsCourse.credits.errors" class="help-block">
+                        <div style="color: red; text-align: center;" *ngIf="formControlsCourse.credits.errors.required">Los créditos son requeridos</div>
+                    </div>
+
+                    <p>
+                        <input type="submit" value="Registrar Curso">
+                    </p>
+                </form>
+
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Informacion de cursos y profesores
+                </mat-panel-title>
+                <mat-panel-description>
+                    Presione aquí si quire información sobre profesores y cursos
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
