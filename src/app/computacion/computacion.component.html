@@ -78,7 +78,7 @@
                     </p>
 
                     <div *ngIf="isSubmitted && formControlsCourse.name.errors" class="help-block">
-                        <div style="color: red; text-align: center;" *ngIf="formControlsCourse.name.required">El nombre es requerido</div>
+                        <div style="color: red; text-align: center;" *ngIf="formControlsCourse.name.errors.required">El nombre es requerido</div>
                     </div>
 
                     <p [ngClass]="{ 'has-error': isSubmitted && formControlsCourse.credits.errors }">
