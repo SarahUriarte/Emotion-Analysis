@@ -1,0 +1,50 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Custom Toolbar</span>
+</mat-toolbar-row>
+</mat-toolbar>
+  <mat-card class="container">
+    <mat-card-content>
+      <div class="inputs">
+        <mat-form-field appearance="fill" class="imput_field">
+          <mat-label>Inserte su nombre de usuario</mat-label>
+          <input matInput placeholder="Usuario" id = "username">
+        </mat-form-field>
+      </div>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Inserte su contraseña</mat-label>
+        <input matInput type = "password" placeholder="contraseña" id = "password">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Inserte su identificación</mat-label>
+        <input matInput type = "number" placeholder="2017103300" id = "identification">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Inserte su nombre</mat-label>
+        <input matInput placeholder="Nombre" id = "name">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Inserte su primer apellido</mat-label>
+        <input matInput placeholder="Apellido 1" id = "last_name">
+      </mat-form-field>
+      <br>  
+      <mat-form-field appearance="fill">
+        <mat-label>Inserte su segundo apellido</mat-label>
+        <input matInput placeholder="Telefono" id = "phone_number">
+      </mat-form-field>  
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Rol</mat-label>
+        <mat-select [(ngModel)]="rol">
+          <mat-option *ngFor="let rol of roles" [value]="rol">{{rol}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button color="primary" class="botonRegistrar" (click)="insertarPersona()">Registrar</button>
+    </mat-card-content>
+    
+  </mat-card>

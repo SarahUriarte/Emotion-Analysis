@@ -9,12 +9,10 @@ export class DataService {
   constructor(private response: HttpClient) {
   }
   private _API_ROOT: string = environment.API_ROOT;
-  private url: string = environment.FACE_URL;
-  registrar(identificador, usuario, contraseña, nombre, apellidos, rol, primeraVez) {
-    const headers = { }; // let
-    const params = {Identificador: identificador, Usuario: usuario, Contraseña: contraseña,
-                    Nombre: nombre, Apellidos: apellidos, Rol: rol, PrimeraVez: primeraVez};
-    return this.response.post(this._API_ROOT + '/registrar', {headers, params});
+  registrar(usuario:JSON) {
+    const headers = {'content-type': 'application/json'};
+    
+    return this.response.post(this._API_ROOT + '/registro', usuario,{headers});
   }
   iniciarSesion(dataQuery: JSON) {
     const headers = { }; // let
@@ -29,10 +27,11 @@ export class DataService {
     const headers = { };
     return this.response.get(this._API_ROOT + '/getCursos', {headers});
   }
-  getEmociones(carne) {
+  getEmociones(id) {
     const headers = { };
-    const params = {Carne: carne};
-    return this.response.get(this._API_ROOT + '/getEmociones', {headers, params});
+    const params = {identification: id};
+    console.log(this._API_ROOT + '/filtrarEstudiante'+"?identification ="+id);
+    return this.response.get(this._API_ROOT + '/filtrarEstudiante'+"?identification ="+id, {headers, params});
   }
   uploadImage(image) {
     const headers = { };

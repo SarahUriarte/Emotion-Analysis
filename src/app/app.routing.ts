@@ -2,11 +2,12 @@ import {Routes} from '@angular/router';
 import {EstudiantesComponent} from './estudiantes/estudiantes.component';
 import { ComputacionComponent } from './computacion/computacion.component';
 import { PsicologiaComponent } from './psicologia/psicologia.component';
+import {RegistroComponent} from './registro/registro.component'
 import { LoginComponent } from './login/login.component';
 
 export const ROUTES: Routes = [
     {
-        path: '', redirectTo: 'estudiantes', pathMatch: 'full'
+        path: '', redirectTo: 'psicologia', pathMatch: 'full'
     },
     {
         path: 'login', component: LoginComponent,
@@ -19,6 +20,9 @@ export const ROUTES: Routes = [
     },
     {
       path: 'psicologia', component: PsicologiaComponent
+    },
+    {
+      path: 'registro', component: RegistroComponent
     },
     {
         path: '**', redirectTo: ''
