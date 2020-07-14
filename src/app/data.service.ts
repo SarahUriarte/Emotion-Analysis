@@ -72,26 +72,10 @@ export class DataService {
     const headers = {};
     return this.response.post(this._API_ROOT + "/registrarCursos", { headers });
   }
-<<<<<<< HEAD
   registrarEmociones(emociones:JSON) {
     const headers = { };
     const params = {};
     return this.response.post(this._API_ROOT + '/registrarEmociones',emociones,{headers});
-=======
-  registrarEmociones(id, emocion, profesorCursoFK, idEstudianteFK, fechaYHora) {
-    const headers = {};
-    const params = {
-      Id: id,
-      Emocion: emocion,
-      ProfesorCursoFK: profesorCursoFK,
-      IdEstudianteFK: idEstudianteFK,
-      FechaYHora: fechaYHora,
-    };
-    return this.response.post(this._API_ROOT + "/registrarEmociones", {
-      headers,
-      params,
-    });
->>>>>>> computacion
   }
   getEmocionesCurso(nombreCurso) {
     const headers = {};

@@ -10,7 +10,7 @@ import{MatChipsModule} from '@angular/material/chips';
 import {MatRadioModule} from '@angular/material/radio';
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FormsModule } from '@angular/forms';
 // tslint:disable-next-line:no-unused-expression
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { WebcamModule} from 'ngx-webcam';
@@ -47,18 +48,16 @@ import { RegistroComponent } from './registro/registro.component'
     WebcamModule,
     MatDialogModule,
     MatFormFieldModule,
+    FormsModule,
     MatInputModule,
     MatChipsModule,
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    FormsModule,
     MatButtonModule,
     HttpClientModule,
     MatButtonModule,
-    MatSelectModule,
     MatMenuModule,
-    FormsModule,
     ReactiveFormsModule,
     MatToolbarModule,
     MatListModule,
