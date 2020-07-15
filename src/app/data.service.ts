@@ -63,8 +63,7 @@ export class DataService {
   registrarCurso(curso: JSON) {
     const headers = { "content-type": "application/json" };
     return this.response.post(
-      this._API_ROOT + "/registrarCurso",curso,
-      { headers }
+      this._API_ROOT + "/registrarCursoEstudiante",curso,{ headers }
     );
     
   }
