@@ -11,10 +11,13 @@ import { MatSelect } from '@angular/material/select';
 import {WebcamImage} from './modules/webcam/domain/webcam-image';
 import {WebcamUtil} from './modules/webcam/util/webcam.util';
 import {WebcamInitError} from './modules/webcam/domain/webcam-init-error';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
-  styleUrls: ['./estudiantes.component.css']
+  styleUrls: ['./estudiantes.component.css'],
+  providers: [DatePipe]
+
 })
 
 
@@ -145,13 +148,16 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   private curso;
   private emocionesEnviar;
   private idCursoSel;
-
+  myDate = new Date();
+  testDay: String;
   @Input() showResponse: Array<any>;
   @Output() passRender : EventEmitter<boolean>;
   
   private emotionResponse;
-  constructor(private dataService:DataService) {
+  constructor(private dataService:DataService, private datePipe: DatePipe) {
     this.passRender = new EventEmitter();
+    this.testDay = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+    console.log(this.testDay)
   }
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<cursos>(ELEMENT_DATA);
@@ -331,15 +337,16 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
         console.log(data)
         this.emotionResponse = data;
         this.emotionResponse = this.emotionResponse.response;
-        console.log(this.emotionResponse)
-        var emotions = this.emotionResponse[0]['faceAttributes']
+        console.log(data[0]['faceAttributes'])
+        var emotions = data[0]['faceAttributes']['emotion']
         for (let emotion in emotions){
+            console.log("Aloha",emotions[emotion])
             if (emotions[emotion] > 0.5){
               this.emocionesEnviar = {
                 student_id:this.carne,
                 emotion:emotions[emotion],
                 course_id: 1,
-                fecha: Date.now
+                fecha: this.testDay
               }
               this.subscription.add(this.dataService.registrarEmociones(this.emocionesEnviar).subscribe(///aaa
                 data => {
