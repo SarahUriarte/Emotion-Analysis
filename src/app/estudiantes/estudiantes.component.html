@@ -97,8 +97,8 @@
         </h1>
         <div>
           <mat-form-field>
-            <mat-select #matCurso required (Change) = "changeValue($event.value)">
-              <mat-option *ngFor="let curso of listaCursosE" [value]="curso.nombre" id="curso.GRUPO">
+            <mat-select #matCursoEmocion required>
+              <mat-option *ngFor="let curso of listaCursosE" [value]="curso.id" id="curso.GRUPO">
                 {{curso.nombre}}
               </mat-option>
             </mat-select>
