@@ -72,7 +72,7 @@ export class DataService {
     return this.response.post(this._API_ROOT + "/registrarCursos", { headers });
   }
   registrarEmociones(emociones:JSON) {
-    const headers = { };
+    const headers = {'content-type': 'application/json'};
     const params = {};
     return this.response.post(this._API_ROOT + '/registrarEmociones',emociones,{headers});
   }
