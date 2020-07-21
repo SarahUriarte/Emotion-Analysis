@@ -25,6 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatTabsModule} from '@angular/material/tabs';
 import { WebcamModule} from 'ngx-webcam';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
@@ -69,6 +70,7 @@ import { RegistroComponent } from './registro/registro.component'
     MatProgressSpinnerModule, 
     MatSortModule, 
     MatTableModule,
+    MatTabsModule,
     RouterModule.forRoot(ROUTES),
     BrowserAnimationsModule,
 
