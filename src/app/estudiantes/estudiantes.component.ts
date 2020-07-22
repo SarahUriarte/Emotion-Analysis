@@ -7,6 +7,7 @@ import {
   EventEmitter,
   OnDestroy,
 } from "@angular/core";
+import swal from 'sweetalert2';
 import { Observable, Subject } from "rxjs";
 
 import { DataService } from "../data.service";
@@ -122,7 +123,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   listaProfesores;
   grabacion = true;
   grabar = true;
-  nameuser = null;
+  nameuser = "jaff98";
   pass = null;
   nombreC = null;
   codigoC = null;
@@ -234,6 +235,24 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
           this.serverRes = data;
           this.serverRes = this.serverRes.response;
           console.log(this.serverRes);
+          if("ok"==this.serverRes){
+            this.getCursos();
+            this.getProfesores();
+            this.getCursosEstudiante();
+            swal.fire(
+              'Perfecto!',
+              'Registrado con exito!',
+              'success'
+            );
+            this.changeView(0);
+          }else{
+            swal.fire(
+              'Error!',
+              'No se ha registrado!',
+              'error'
+            );
+          }
+
         },
         (err: HttpErrorResponse) => {
           if (err.error instanceof Error) {

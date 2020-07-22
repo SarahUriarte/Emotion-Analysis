@@ -24,6 +24,7 @@
     "@types/video.js": "^7.3.10",
     "ngx-webcam": "^0.3.0",
     "rxjs": "~6.5.4",
+    "sweetalert2": "^9.17.0",
     "tslib": "^1.10.0",
     "video.js": "^7.8.4",
     "videojs-record": "^4.0.0",
