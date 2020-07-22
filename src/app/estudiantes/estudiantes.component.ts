@@ -128,7 +128,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   codigoC = null;
   creditosC = null;
   serverRes;
-  carne = "0504200129";
+  carne = localStorage.getItem('identification');
   numGrupo;
   idProfesor;
   idCurso;
@@ -292,6 +292,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     );
   }
   getCursosEstudiante() {
+    console.log('El # de cedula es ',this.carne)
     this.subscription.add(
       this.dataService.getCursosEstudiante(this.carne).subscribe(
         ///aaa
