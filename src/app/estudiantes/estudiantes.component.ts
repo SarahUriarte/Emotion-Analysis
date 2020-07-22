@@ -130,7 +130,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   creditosC = null;
   serverRes;
   carne = "0504200129";
-  numGrupo;
+  numGrupo="";
   idProfesor;
   idCurso;
   idEstudiante = 1;
@@ -188,11 +188,20 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     console.log(value);
   }
   siguienteF() {
-    if (this.siguiente == true) {
-      this.siguiente = false;
-    } else {
-      this.siguiente = true;
+    if(this.numGrupo=="" || this.nombreC==""){
+      swal.fire(
+        'Error!',
+        'Espacios en blanco!',
+        'error'
+      );
+    }else{
+      if (this.siguiente == true) {
+        this.siguiente = false;
+      } else {
+        this.siguiente = true;
+      }
     }
+    
   }
   insertarCursos(listaCursosE) {
     for (let i in listaCursosE) {

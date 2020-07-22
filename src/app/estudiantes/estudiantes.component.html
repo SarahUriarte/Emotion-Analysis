@@ -54,14 +54,14 @@
         <mat-form-field>
           <mat-label>Cursos</mat-label>
           <mat-select #matCurso required>
-            <mat-option *ngFor="let curso of listaCursos" [value]="curso.id" id="curso.GRUPO">
+            <mat-option *ngFor="let curso of listaCursos" required="true" [value]="curso.id" id="curso.GRUPO">
               {{curso.nombre}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-label>GRUPO</mat-label>
-          <input matInput [(ngModel)]="numGrupo" type="number" placeholder="Ex. 50" value="">
+          <input matInput [(ngModel)]="numGrupo" required="true" type="number" placeholder="Ex. 50" value="">
         </mat-form-field>
         <div class="contenedor">
           <button  mat-raised-button color="primary" style="width : 10em; align-self: center;" (click)="siguienteF()">Siguiente</button>
@@ -126,14 +126,14 @@
   </div>
   <div [hidden]="miPerfil">
     <div class="contenedor">
-      <mat-form-field class="example-full-width">
+      <mat-form-field   class="example-full-width">
         <mat-label>Nombre Usuario</mat-label>
-        <input matInput [(ngModel)]="nameuser" type="string" placeholder="Ex. User1" value="">
+        <input matInput  [readOnly]="true" [(ngModel)]="nameuser" type="string" placeholder="Ex. User1" value="">
       </mat-form-field>
     
-      <mat-form-field class="example-full-width">
+      <mat-form-field  class="example-full-width">
         <mat-label>Cedula</mat-label>
-        <input matInput [(ngModel)]="carne" type="string" placeholder="Ex. Cedula" value="">
+        <input matInput [readOnly]="true" [(ngModel)]="carne" type="string" placeholder="Ex. Cedula" value="">
       </mat-form-field>
     </div>
   </div>
