@@ -102,8 +102,23 @@ export class DataService {
       "Content-Type": "application/octet-stream",
       "Ocp-Apim-Subscription-Key": environment.SUBSCRIPTION_KEY,
     };
-
     //const blob = this.makeblob(imageURL);
     return this.response.post(this.url, image, { headers });
+  }
+  getAvgEmotionsStudent(student_id, start,end) {
+    const headers = {};
+    const params = { student_id: student_id, start: start, end:end};
+    return this.response.get(this._API_ROOT + "/get_avg_emotions_student", {
+      headers,
+      params,
+    });
+  }
+  getAvgEmotionsCourse(courseName, start,end) {
+    const headers = {};
+    const params = { course: courseName, start: start, end:end};
+    return this.response.get(this._API_ROOT + "/get_avg_emotions_courses", {
+      headers,
+      params,
+    });
   }
 }

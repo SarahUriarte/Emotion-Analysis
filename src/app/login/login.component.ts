@@ -5,7 +5,6 @@ import { DataService } from "../data.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -14,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isSubmitted = false;
+  key='identification';
   private subscription: Subscription = new Subscription();
 
   constructor(private formBuilder: FormBuilder, private service: DataService, private _router:Router) {}
@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
         ///aaa
         (data) => {
           data = data;
+          localStorage.setItem(this.key,data['identification']);
           console.log(data);
           if(data["rol"] === 'E')
           {

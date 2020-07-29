@@ -1,3 +1,34 @@
 table {
     width: 70%;
   }
+
+#CardStudent{
+    display: block;
+    justify-content: center;
+    text-align: center;
+    height: 600px;
+    width: 800px;
+    margin: auto;
+}
+
+#inputs{
+  height: 100px;
+  width: 400px;
+  display: inline-table;
+}
+#buscarAvg{
+  width: 50px;
+}
+#tableStudents{
+  justify-content: center;
+  text-align: center;
+  height: 800px;
+  width: 1200px;
+  margin: auto;
+}  
+#tabla{
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  justify-content: center;
+}

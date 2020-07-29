@@ -1,39 +1,124 @@
-<mat-card class="mat-elevation-z8">
-<div>
-    <mat-form-field appearance="fill">
-        <mat-label>Search</mat-label>
-        <input matInput type = "search" placeholder="Cedula" id="search">
-        <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-    <button mat-raised-button color="primary" class="botonBuscar" (click)="getEmotions()">Buscar</button>
-</div>
-<div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<mat-tab-group>
+  <mat-tab label="Emociones listadas por profesor">
+    <mat-card id="tableStudents">
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Search</mat-label>
+          <input matInput type="search" placeholder="Cedula" id="search" />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="botonBuscar" (click)="getEmotions()">
+          Buscar
+        </button>
+      </div>
+      <div id="tabla">
+        <table mat-table [dataSource]="dataSource">
+          <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
 
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
-      
-        <!-- Position Column -->
-        <ng-container matColumnDef="emocion">
-          <th mat-header-cell *matHeaderCellDef> Emoción </th>
-          <td mat-cell *matCellDef="let element"> {{element.emocion}} </td>
-        </ng-container>
-      
-        <!-- Name Column -->
-        <ng-container matColumnDef="curso">
-          <th mat-header-cell *matHeaderCellDef> Curso </th>
-          <td mat-cell *matCellDef="let element"> {{element.curso}} </td>
-        </ng-container>
-      
-        <!-- Weight Column -->
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef> Fecha </th>
-          <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-        </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-</div>
-    
-</mat-card>
+          <!-- Position Column -->
+          <ng-container matColumnDef="emocion">
+            <th mat-header-cell *matHeaderCellDef>Emoción</th>
+            <td mat-cell *matCellDef="let element">{{ element.emocion }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="curso">
+            <th mat-header-cell *matHeaderCellDef>Curso</th>
+            <td mat-cell *matCellDef="let element">{{ element.curso }}</td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef>Fecha</th>
+            <td mat-cell *matCellDef="let element">{{ element.fecha }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Emociones promedio estudiante">
+    <mat-card id="CardStudent">
+      <div id="inputs">
+        <table>
+          <tr>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Carné</mat-label>
+                <input matInput type="number" placeholder="Carné" id="carne" />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha inicial</mat-label>
+                <input matInput type="date" placeholder="Fecha" id="startStudent" />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha final</mat-label>
+                <input matInput type="date" placeholder="Carné" id="endStudent" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <button mat-raised-button color="primary" id="botonBuscarAvg" (click)="getAvgStuden()">
+                Buscar
+              </button>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <canvas id="myChart"></canvas>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Emociones promedio por curso">
+    <mat-card id="CardStudent">
+      <div id="inputs">
+        <table>
+          <tr>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Nombre curso</mat-label>
+                <mat-select #matCurso required>
+                  <mat-option *ngFor="let curso of listaCursos" [value]="curso.nombre" id="curso.GRUPO">
+                    {{curso.nombre}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+            </td>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha inicial</mat-label>
+                <input matInput type="date" placeholder="Fecha" id="startCourse" />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha final</mat-label>
+                <input matInput type="date" placeholder="Carné" id="endCourse" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <button mat-raised-button color="primary" id="botonBuscarAvg" (click)="getAvgCourse()">
+                Buscar
+              </button>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <canvas id="avgCourse"></canvas>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
