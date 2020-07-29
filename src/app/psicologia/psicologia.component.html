@@ -1,6 +1,6 @@
 <mat-tab-group>
   <mat-tab label="Emociones listadas por profesor">
-    <mat-card class="mat-elevation-z8">
+    <mat-card id="tableStudents">
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Search</mat-label>
@@ -11,8 +11,8 @@
           Buscar
         </button>
       </div>
-      <div>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <div id="tabla">
+        <table mat-table [dataSource]="dataSource">
           <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
 
