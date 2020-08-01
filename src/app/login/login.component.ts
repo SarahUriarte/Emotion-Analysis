@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
           data = data;
           localStorage.setItem("username",this.loginForm.value["username"])
           localStorage.setItem(this.key,data['identification']);
+          localStorage.setItem("user_id",data['user_id']);
           console.log(data);
           if(data["rol"] === 'E')
           {

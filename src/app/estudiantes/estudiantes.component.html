@@ -27,7 +27,7 @@
           <th mat-header-cell *matHeaderCellDef> Codigo </th>
           <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
         </ng-container>
-    
+     
         <!-- Weight Column -->
         <ng-container matColumnDef="weight">
           <th mat-header-cell *matHeaderCellDef> Nombre </th>
@@ -98,7 +98,7 @@
         <div>
           <mat-form-field>
             <mat-select #matCursoEmocion required>
-              <mat-option *ngFor="let curso of listaCursosE" [value]="curso.id" id="curso.GRUPO">
+              <mat-option *ngFor="let curso of listaCursosE" required="true" [value]="curso.id" id="curso.GRUPO">
                 {{curso.nombre}}
               </mat-option>
             </mat-select>

@@ -137,7 +137,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   idEstudiante =  localStorage.getItem('user_id');
   private curso;
   private emocionesEnviar;
-  private idCursoSel;
+  idCursoSel;
   myDate = new Date();
   testDay: String;
   @Input() showResponse: Array<any>;
@@ -256,6 +256,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
               'success'
             );
             this.changeView(0);
+            this.siguiente=false;
           }else{
             swal.fire(
               'Error!',
