@@ -180,6 +180,8 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
     });
     this.matCursoEmocion.valueChange.subscribe((value) => {
       this.idCursoSel = value;
+      console.log("curso seleccionado",this.idCursoSel);
+      console.log("C", this.listaCursosE);
     });
   }
   misCursos = true;
