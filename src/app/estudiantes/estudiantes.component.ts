@@ -123,7 +123,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   listaProfesores;
   grabacion = true;
   grabar = true;
-  nameuser = "jaff98";
+  nameuser = localStorage.getItem('username');
   pass = null;
   nombreC = null;
   codigoC = null;
@@ -133,7 +133,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   numGrupo;
   idProfesor;
   idCurso;
-  idEstudiante = 1;
+  idEstudiante =  localStorage.getItem('user_id');
   private curso;
   private emocionesEnviar;
   private idCursoSel;
