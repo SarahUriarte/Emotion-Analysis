@@ -135,7 +135,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
   idProfesor;
   idCurso;
   idCursoEm;
-  idEstudiante =  localStorage.getItem('user_id');
+  idEstudiante =  parseInt(localStorage.getItem('user_id'));
   private curso;
   private emocionesEnviar;
   
