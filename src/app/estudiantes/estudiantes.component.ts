@@ -377,7 +377,7 @@ export class EstudiantesComponent implements OnInit, OnDestroy {
             for (let emotion in emotions) {
               if (emotions[emotion] > 0.5) {
                 this.emocionesEnviar = {
-                  student_id: this.idEstudiante,
+                  id_student: this.idEstudiante,
                   emotion: emotion,
                   course_id: this.idCursoEm,
                   fecha: this.testDay,
